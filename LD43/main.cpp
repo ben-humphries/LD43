@@ -1,24 +1,38 @@
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
+#include "Player.h"
 
+#ifndef SFML_STATIC
 #define SFML_STATIC
-//test
+#endif
+
+
+Player * p = new Player();
+
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	clock_t t = clock();
+
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+
 
 	while (window.isOpen())
 	{
-		sf::Event event;
-		while (window.pollEvent(event))
+		sf::Event e;
+		while (window.pollEvent(e))
 		{
-			if (event.type == sf::Event::Closed)
+			if (e.type == sf::Event::Closed)
 				window.close();
+			else
+				p->handleEvent(e);
 		}
 
+		float dt = ((float)(clock() - t)) / CLOCKS_PER_SEC;
+		t = clock();
+
+		p->update(dt);
 		window.clear();
-		window.draw(shape);
+		window.draw(*p);
 		window.display();
 	}
 
