@@ -1,5 +1,7 @@
 #include "GameObject.h"
 
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class Player : public GameObject
 {
@@ -19,4 +21,6 @@ public:
 	void handleEvent(sf::Event e);
 
 };
+
+#endif
 

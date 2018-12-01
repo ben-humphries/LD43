@@ -1,6 +1,6 @@
 #include "Floor.h"
 
-#define SHOW_COLLIDERS true
+#define SHOW_COLLIDERS false
 
 #define COLLIDER_START sf::Color(0,0,255,255)
 #define COLLIDER sf::Color(255,0,0,255)

@@ -18,5 +18,7 @@ public:
 	virtual sf::Vector2i boundCollision(GameObject * g);
 
 	virtual void handleEvent(sf::Event e);
+
+	sf::Vector2f getCenter();
 };
 

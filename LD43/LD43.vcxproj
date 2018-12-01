@@ -135,15 +135,24 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InteractingGameObject.cpp" />
+    <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="CompositeCommand.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InteractingGameObject.h" />
+    <ClInclude Include="Key.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ScreenFadeCommand.h" />
+    <ClInclude Include="WaitCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

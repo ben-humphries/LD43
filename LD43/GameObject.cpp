@@ -37,6 +37,13 @@ void GameObject::update(float dt) {
 
 void GameObject::handleEvent(sf::Event e) { };
 
+sf::Vector2f GameObject::getCenter() {
+	sf::Vector2f center;
+	center.x = this->getPosition().x + this->getLocalBounds().width / 2;
+	center.y = this->getPosition().y + this->getLocalBounds().height / 2;
+
+	return center;
+}
 
 //Modified version of collision function from Playground: https://github.com/ben-humphries/Playground
 sf::Vector2i GameObject::boundCollision(GameObject * g) {
