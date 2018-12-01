@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #define SFML_STATIC
-
+//test
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
