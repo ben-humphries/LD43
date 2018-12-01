@@ -1,20 +1,17 @@
 #include "Player.h"
 
-#define PLAYER_SPEED 200.0f
+#define PLAYER_SPEED 100.0f
 #define ROOT_TWO 1.41421356237
 
 bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 
+Animation * currentAnimation;
+
 Player::Player()
 {
-
-	this->setScale(3, 3);
-
 	//Forward walk animation
 	forwardWalkAnimation = new Animation();
-	//animations.push_back(forwardWalkAnimation);
 	sf::Texture * forwardWalkTexture = new sf::Texture();
-	//textures.push_back(forwardWalkTexture);
 
 	if (!(*forwardWalkTexture).loadFromFile("res/player-forward.png")) {
 		printf("Error loading texture: Missing texture file");
@@ -26,12 +23,57 @@ Player::Player()
 		forwardWalkAnimation->addFrame(sf::IntRect(i * 32, 0, 32, 32));
 	}
 
+	//Backward walk animation
+	backwardWalkAnimation = new Animation();
+	sf::Texture * backwardWalkTexture = new sf::Texture();
 
-	this->setAnimation(*forwardWalkAnimation);
+	if (!(*backwardWalkTexture).loadFromFile("res/player-backward.png")) {
+		printf("Error loading texture: Missing texture file");
+	}
+
+	backwardWalkAnimation->setSpriteSheet(*backwardWalkTexture);
+
+	for (int i = 0; i < 8; i++) {
+		backwardWalkAnimation->addFrame(sf::IntRect(i * 32, 0, 32, 32));
+	}
+
+	//Right walk animation
+	rightWalkAnimation = new Animation();
+	sf::Texture * rightWalkTexture = new sf::Texture();
+
+	if (!(*rightWalkTexture).loadFromFile("res/player-right.png")) {
+		printf("Error loading texture: Missing texture file");
+	}
+
+	rightWalkAnimation->setSpriteSheet(*rightWalkTexture);
+
+	for (int i = 0; i < 8; i++) {
+		rightWalkAnimation->addFrame(sf::IntRect(i * 32, 0, 32, 32));
+	}
+
+	//Left walk animation
+	leftWalkAnimation = new Animation();
+	sf::Texture * leftWalkTexture = new sf::Texture();
+
+	if (!(*leftWalkTexture).loadFromFile("res/player-left.png")) {
+		printf("Error loading texture: Missing texture file");
+	}
+
+	leftWalkAnimation->setSpriteSheet(*leftWalkTexture);
+
+	for (int i = 0; i < 8; i++) {
+		leftWalkAnimation->addFrame(sf::IntRect(i * 32, 0, 32, 32));
+	}
+
+
+	currentAnimation = forwardWalkAnimation;
+	this->setAnimation(*currentAnimation);
 	this->setFrameTime(0.1f);
 	this->play();
 
+	//this->setScale(3, 3);
 
+	collider = sf::FloatRect(9, 1, 13, 31);
 }
 
 
@@ -42,6 +84,10 @@ Player::~Player()
 void Player::update(float dt) {
 	GameObject::update(dt);
 
+	if (!movingUp && !movingDown && !movingRight && !movingLeft) {
+		this->stop();
+	}
+
 	sf::Vector2f toMove;
 
 	if (movingUp) {
@@ -51,13 +97,22 @@ void Player::update(float dt) {
 		else if (movingLeft) {
 			toMove.y = -PLAYER_SPEED / ROOT_TWO * dt;
 			toMove.x = -PLAYER_SPEED / ROOT_TWO * dt;
+
+			currentAnimation = backwardWalkAnimation;
+			this->play(*currentAnimation);
 		}
 		else if (movingRight) {
 			toMove.y = -PLAYER_SPEED / ROOT_TWO * dt;
 			toMove.x = PLAYER_SPEED / ROOT_TWO * dt;
+
+			currentAnimation = backwardWalkAnimation;
+			this->play(*currentAnimation);
 		}
 		else {
 			toMove.y = -PLAYER_SPEED * dt;
+
+			currentAnimation = backwardWalkAnimation;
+			this->play(*currentAnimation);
 		}
 	}
 	else if (movingDown) {
@@ -71,11 +126,10 @@ void Player::update(float dt) {
 		}
 		else {
 			toMove.y = PLAYER_SPEED * dt;
-
-			this->setAnimation(*forwardWalkAnimation);
-			if(!this->isPlaying())
-				this->play();
 		}
+
+		currentAnimation = forwardWalkAnimation;
+		this->play(*currentAnimation);
 	}
 	else if (movingLeft) {
 		if (movingRight) {
@@ -83,10 +137,16 @@ void Player::update(float dt) {
 		}
 		else {
 			toMove.x = -PLAYER_SPEED * dt;
+
+			currentAnimation = leftWalkAnimation;
+			this->play(*currentAnimation);
 		}
 	}
 	else if (movingRight) {
 		toMove.x = PLAYER_SPEED * dt;
+
+		currentAnimation = rightWalkAnimation;
+		this->play(*currentAnimation);
 	}
 	else {
 		toMove.x = 0;
@@ -94,6 +154,7 @@ void Player::update(float dt) {
 	}
 
 	this->move(toMove);
+	//can override boundCollision to change animation when hitting a wall.
 
 }
 

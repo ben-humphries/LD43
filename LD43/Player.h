@@ -11,6 +11,9 @@ public:
 	std::vector<sf::Texture *> textures;
 
 	Animation * forwardWalkAnimation;
+	Animation * backwardWalkAnimation;
+	Animation * rightWalkAnimation;
+	Animation * leftWalkAnimation;
 
 	void update(float dt);
 	void handleEvent(sf::Event e);
