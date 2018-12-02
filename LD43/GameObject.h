@@ -14,6 +14,8 @@ public:
 
 	sf::FloatRect collider;
 
+	std::string tag;
+
 	virtual void update(float dt);
 	virtual sf::Vector2i boundCollision(GameObject * g);
 

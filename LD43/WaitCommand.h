@@ -50,7 +50,6 @@ void WaitCommand::run() {
 		elapsedTime += dt;
 
 		if (elapsedTime >= seconds) {
-			printf("here\n");
 			return;
 		}
 	}

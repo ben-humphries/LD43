@@ -4,6 +4,8 @@
 
 #define COLLIDER_START sf::Color(0,0,255,255)
 #define COLLIDER sf::Color(255,0,0,255)
+#define DOOR sf::Color(0,0,0,255)
+#define KEY sf::Color(255,255,255,255)
 
 Floor::Floor(std::string backgroundDir, std::string colliderMapDir)
 {
@@ -44,6 +46,19 @@ Floor::Floor(std::string backgroundDir, std::string colliderMapDir)
 				g->setPosition(x, y);
 				collidingObjects.push_back(*g);
 			}
+			else if (currentPixel == DOOR) {
+				std::string tag = std::to_string(colliderMap.getPixel(x + 1, y).toInteger());
+				Door * d = new Door(tag);
+				d->setPosition(x, y);
+				d->setScale(2, 2);
+				doors.push_back(d);
+			}
+			else if (currentPixel == KEY) {
+				std::string tag = std::to_string(colliderMap.getPixel(x + 1, y).toInteger());
+				Key * k = new Key(tag);
+				k->setPosition(x, y);
+				keys.push_back(k);
+			}
 		}
 	}
 }
@@ -67,6 +82,13 @@ void Floor::draw(sf::RenderTarget& target, sf::RenderStates states) const
 			s.setFillColor(sf::Color(0, 255, 0, 255));
 			target.draw(s, states);
 		}
+	}
+
+	for (int i = 0; i < keys.size(); i++) {
+		target.draw(*keys.at(i), states);
+	}
+	for (int i = 0; i < doors.size(); i++) {
+		target.draw(*doors.at(i), states);
 	}
 
 }

@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InteractingGameObject.cpp" />
@@ -145,12 +146,16 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CompositeCommand.h" />
+    <ClInclude Include="DialogCommand.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Floor.h" />
+    <ClInclude Include="FocusOnGameObjectCommand.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InteractingGameObject.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ResetWindowCommand.h" />
     <ClInclude Include="ScreenFadeCommand.h" />
     <ClInclude Include="WaitCommand.h" />
   </ItemGroup>

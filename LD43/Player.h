@@ -20,6 +20,7 @@ public:
 	void update(float dt);
 	void handleEvent(sf::Event e);
 
+	std::vector<GameObject> inventory;
 };
 
 #endif

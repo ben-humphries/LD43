@@ -15,6 +15,7 @@ public:
 	static sf::View view;
 
 	static Player player;
+
 };
 
 #endif

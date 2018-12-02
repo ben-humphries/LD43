@@ -1,9 +1,10 @@
 #include "Key.h"
 
 
-
-Key::Key()
+Key::Key(std::string tag)
 {
+
+	this->tag = tag;
 
 	if (!texture.loadFromFile("res/key.png")) {
 		printf("Error loading texture: Missing texture file");
@@ -32,5 +33,13 @@ Key::~Key()
 
 bool Key::interactWithPlayer() {
 
-	return InteractingGameObject::interactWithPlayer();
+	if (InteractingGameObject::interactWithPlayer() && !pickedUp) {
+		this->stop();
+		GameController::player.inventory.push_back(*this);
+
+		pickedUp = true;
+		this->setScale(0, 0);
+		return true;
+	}
+	return false;
 }

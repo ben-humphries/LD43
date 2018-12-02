@@ -1,6 +1,6 @@
 #include "InteractingGameObject.h"
 
-#define INTERACTING_DISTANCE 20
+#define INTERACTING_DISTANCE 40
 
 InteractingGameObject::InteractingGameObject()
 {
@@ -12,8 +12,8 @@ InteractingGameObject::~InteractingGameObject()
 }
 
 bool InteractingGameObject::interactWithPlayer() {
-	float dx = GameController::player.getCenter().x - this->getPosition().x;
-	float dy = GameController::player.getCenter().y - this->getPosition().y;
+	float dx = GameController::player.getCenter().x - this->getCenter().x;
+	float dy = GameController::player.getCenter().y - this->getCenter().y;
 
 	float distance = sqrt(dx * dx + dy * dy);
 
